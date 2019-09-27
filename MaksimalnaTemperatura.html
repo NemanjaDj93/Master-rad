@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Maksimalna temperatura</title>
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+	
+	 <style>
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;  
+  
+}
+
+li a:active {
+  background-color: #111;  
+  
+}
+}
+</style>
+
+   
+<style>
+body {font-family: Arial;}
+
+/* Style the tab */
+.tab {
+  overflow: hidden;
+  background-color: #333;
+}
+
+/* Style the buttons inside the tab */
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  color: white;
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #111;
+}
+
+/* Create an active/current tablink class */
+.tab button:active {
+  background-color: #111;
+}
+
+</style>
+	
+	
+	
+  </head>
+<body>
+
+<ul>
+  <li><a class="active" href="ProsecnaTemperatura.html">PROSECNA TEMPERATURA</a></li>
+  <li><a href="MaksimalnaTemperatura.html">MAKSIMALNA TEMPERATURA</a></li>
+  <li><a href="MinimalnaTemperatura.html">MINIMALNA TEMPERATURA</a></li>
+  <li><a href="BrzinaVetra.html">BRZINA VETRA</a></li>
+  <li><a href="Padavine.html">PADAVINE</a></li>
+  <li><a href="PritisakVodenePare.html">PRITISAK VODENE PARE</a></li>
+</ul>
+
+
+
+<div class="tab">
+  <button onclick="januar()">Januar</button>
+  <button onclick="februar()">Februar</button>
+  <button onclick="mart()">Mart</button>
+  <button onclick="april()">April</button>
+  <button onclick="maj()">Maj</button>
+  <button onclick="jun()">Jun</button>
+  <button onclick="jul()">Jul</button>
+  <button onclick="avgust()">Avgust</button>
+  <button onclick="septembar()">Septembar</button>
+  <button onclick="oktobar()">Oktobar</button>
+  <button onclick="novembar()">Novembar</button>
+  <button onclick="decembar()">Decembar</button>
+</div>
+
+
+  
+   <div  id="map" class="map">
+		<div id="legend">
+			<img src="http://localhost:8080/geoserver/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=Master:tmax">	
+		</div>
+	</div>	
+	
+	<style>
+	#legend{
+    position:absolute; 
+    right:5px; 
+    bottom:5px; 
+    z-index:10000;
+	height:645px;
+	width: 70px;
+    background-color:#FFFFFF;
+}
+	</style>		
+    <div role="group" aria-label="Animation controls">
+
+
+
+    <script>
+
+      // Set up the layers
+      var layers = [
+        new ol.layer.Tile({
+            source: new ol.source.OSM()
+          }),
+		  
+        new ol.layer.Tile({
+          source: new ol.source.TileWMS({
+            url: 'http://localhost:8080/geoserver/wms',
+            params: {'LAYERS': 'Master:tmax',
+					  "TIME": "2017-01-01"}
+          })
+        })
+      ];
+
+      var map = new ol.Map({
+        layers: layers,
+        target: 'map',
+        
+		view: new ol.View({			
+			center: ol.proj.fromLonLat([ 20.6832, 44.0920]),
+			zoom: 7
+			})	
+      });
+	  
+	   function januar() {
+		document.getElementById("januar");
+		layers[1].getSource().updateParams({"TIME": "2017-01-01"});
+		}
+		
+		 function februar() {
+		document.getElementById("februar");
+		layers[1].getSource().updateParams({"TIME": "2017-02-01"});
+		}
+		
+		 function mart() {
+		document.getElementById("mart");
+		layers[1].getSource().updateParams({"TIME": "2017-03-01"});
+		}
+		
+		function april() {
+		document.getElementById("april");
+		layers[1].getSource().updateParams({"TIME": "2017-04-01"});
+		}
+		
+		function maj() {
+		document.getElementById("maj");
+		layers[1].getSource().updateParams({"TIME": "2017-05-01"});
+		}
+		
+		function jun() {
+		document.getElementById("jun");
+		layers[1].getSource().updateParams({"TIME": "2017-06-01"});
+		}
+		
+		function jul() {
+		document.getElementById("jul");
+		layers[1].getSource().updateParams({"TIME": "2017-07-01"});
+		}
+		
+		function avgust() {
+		document.getElementById("avgust");
+		layers[1].getSource().updateParams({"TIME": "2017-08-01"});
+		}
+		
+		function septembar() {
+		document.getElementById("septembar");
+		layers[1].getSource().updateParams({"TIME": "2017-09-01"});
+		}
+		
+		function oktobar() {
+		document.getElementById("oktobar");
+		layers[1].getSource().updateParams({"TIME": "2017-10-01"});
+		}
+		
+		function novembar() {
+		document.getElementById("novembar");
+		layers[1].getSource().updateParams({"TIME": "2017-11-01"});
+		}
+		
+		function decembar() {
+		document.getElementById("decembar");
+		layers[1].getSource().updateParams({"TIME": "2017-12-01"});
+		}     
+	 
+
+      
+    </script>
+  </body>
+</html>
